@@ -9,6 +9,7 @@ class GymClass extends Model
 {
     use HasFactory;
 
+    // Especificar explícitamente el nombre de la tabla
     protected $table = 'classes';
 
     protected $fillable = [
@@ -25,8 +26,9 @@ class GymClass extends Model
         'end_time' => 'datetime:H:i',
     ];
 
+    // Relación con reservas - especificar explícitamente las claves
     public function reservations()
     {
-        return $this->hasMany(Reservation::class, 'class_id');
+        return $this->hasMany(Reservation::class, 'class_id', 'id');
     }
 }

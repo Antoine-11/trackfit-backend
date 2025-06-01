@@ -14,7 +14,8 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'class_id' => 'required|exists:gym_classes,id',
+            'class_id' => 'required|exists:classes,id', // CORREGIDO: cambiar gym_classes por classes
+
             'reservation_date' => 'required|date|after_or_equal:today',
         ]);
 
@@ -79,7 +80,7 @@ class ReservationController extends Controller
     public function myReservations()
     {
         $user = Auth::user();
-        
+       
         $reservations = $user->reservations()
             ->with('gymClass')
             ->orderBy('reservation_date', 'asc')

@@ -1,4 +1,5 @@
 <?php
+// app/Http/Controllers/AuthController.php
 
 namespace App\Http\Controllers;
 
@@ -93,6 +94,45 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error al hacer logout',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // NUEVO: Método para reset password
+    public function resetPassword(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required|email|exists:users,email',
+                'password' => 'required|string|min:8',
+                'password_confirmation' => 'required|same:password',
+            ]);
+
+            $user = User::where('email', $request->email)->first();
+            
+            if (!$user) {
+                return response()->json([
+                    'message' => 'Usuario no encontrado'
+                ], 404);
+            }
+
+            $user->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+            return response()->json([
+                'message' => 'Contraseña actualizada exitosamente'
+            ]);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Datos de entrada inválidos',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al actualizar la contraseña',
                 'error' => $e->getMessage()
             ], 500);
         }

@@ -11,6 +11,7 @@ use App\Http\Controllers\ReservationController;
 // Rutas públicas
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
 // Obtener planes (público para mostrar en la página de tarifas)
 Route::get('/subscriptions/plans', [SubscriptionController::class, 'getPlans']);
