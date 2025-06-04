@@ -14,7 +14,7 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'class_id' => 'required|exists:classes,id', // CORREGIDO: cambiar gym_classes por classes
+            'class_id' => 'required|exists:classes,id', 
 
             'reservation_date' => 'required|date|after_or_equal:today',
         ]);

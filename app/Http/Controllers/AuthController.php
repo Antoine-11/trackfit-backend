@@ -1,5 +1,4 @@
 <?php
-// app/Http/Controllers/AuthController.php
 
 namespace App\Http\Controllers;
 
@@ -99,7 +98,7 @@ class AuthController extends Controller
         }
     }
 
-    // NUEVO: Método para reset password
+    // Método para reset password
     public function resetPassword(Request $request)
     {
         try {
